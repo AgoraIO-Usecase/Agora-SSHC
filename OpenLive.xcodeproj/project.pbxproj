@@ -23,6 +23,9 @@
 		4A5B9DEC25D14DD900A987BF /* Agoraffmpeg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A9F320225AC320700B79EC3 /* AgoraRtcKit2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */; };
 		4A9F320325AC320700B79EC3 /* AgoraRtcKit2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4AFE7B54262F0863003C00A7 /* bgm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4AFE7B51262F0863003C00A7 /* bgm1.mp3 */; };
+		4AFE7B55262F0863003C00A7 /* bgm2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4AFE7B52262F0863003C00A7 /* bgm2.mp3 */; };
+		4AFE7B56262F0863003C00A7 /* bgm3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4AFE7B53262F0863003C00A7 /* bgm3.mp3 */; };
 		A75BF8C822B38B5F0072AF13 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75BF8C722B38B5F0072AF13 /* VideoView.swift */; };
 		A76C267C238657850047E150 /* AGEVideoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2677238657850047E150 /* AGEVideoLayout.swift */; };
 		A76C267D238657850047E150 /* AGEVideoConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76C2678238657850047E150 /* AGEVideoConstraints.swift */; };
@@ -84,6 +87,9 @@
 		4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agoraffmpeg.framework; path = OpenLive/Agoraffmpeg.framework; sourceTree = "<group>"; };
 		4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit2.framework; path = OpenLive/AgoraRtcKit2.framework; sourceTree = "<group>"; };
 		4A9F322A25AC430F00B79EC3 /* OpenLive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenLive-Bridging-Header.h"; sourceTree = "<group>"; };
+		4AFE7B51262F0863003C00A7 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm1.mp3; sourceTree = SOURCE_ROOT; };
+		4AFE7B52262F0863003C00A7 /* bgm2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm2.mp3; sourceTree = SOURCE_ROOT; };
+		4AFE7B53262F0863003C00A7 /* bgm3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm3.mp3; sourceTree = SOURCE_ROOT; };
 		A758116724078C4D007EDAD3 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		A758116A24078C6E007EDAD3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A758116C24078C78007EDAD3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -193,6 +199,9 @@
 		A76C2675238657670047E150 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4AFE7B51262F0863003C00A7 /* bgm1.mp3 */,
+				4AFE7B52262F0863003C00A7 /* bgm2.mp3 */,
+				4AFE7B53262F0863003C00A7 /* bgm3.mp3 */,
 				078012EC1D1E57730093DE24 /* AppDelegate.swift */,
 				078012F31D1E57730093DE24 /* Assets.xcassets */,
 				078012F51D1E57730093DE24 /* LaunchScreen.storyboard */,
@@ -351,6 +360,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7DEE04F232F735C00E34432 /* README.md in Resources */,
+				4AFE7B54262F0863003C00A7 /* bgm1.mp3 in Resources */,
+				4AFE7B56262F0863003C00A7 /* bgm3.mp3 in Resources */,
+				4AFE7B55262F0863003C00A7 /* bgm2.mp3 in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
