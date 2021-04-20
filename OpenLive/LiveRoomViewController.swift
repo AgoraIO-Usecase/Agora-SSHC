@@ -113,8 +113,8 @@ class LiveRoomViewController: UIViewController {
   @IBOutlet weak var bgmLabel: UILabel!
     
     @IBOutlet var sessionButtons: [UIButton]!
-  var pickData: [String] = ["大海","稻香","知足"]
-  var fileName: String = "大海"
+  var pickData: [String] = ["BGM1","BGM2","BGM3"]
+  var fileName: String = "BGM1"
   private var started: Bool = false;
     private var agoraKit: AgoraRtcEngineKit {
         return dataSource!.liveVCNeedAgoraKit()
@@ -414,7 +414,7 @@ private extension LiveRoomViewController {
             agoraKit.joinChannelEx(byToken: KeyCenter.Token, channelId: channelId, uid: uid2, connectionId: connectionIdPointer2, delegate: nil, mediaOptions: mediaOptions, joinSuccess: nil)
             connectionId = connectionIdPointer2.pointee
             connectionIdPointer2.deallocate()
-            guard let filepath = Bundle.main.path(forResource: "大海.mp3", ofType: nil) else {
+            guard let filepath = Bundle.main.path(forResource: "BGM1.mp3", ofType: nil) else {
                 return
             }
             pcmSourcePush = AgoraPcmSourcePush(delegate: self, filePath: filepath)
@@ -513,11 +513,11 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
             guard let recv = str?.contains("rtt,") else { return  }
             guard let start = str?.contains("start") else { return  }
             if recv {
-                let time = str?.substring(from: 7)
+                let time = str?.substring(from: 9)
                 guard let data2 = time?.data(using: String.Encoding.utf8) else { return  }
                 agoraKit.sendStreamMessage(self.streamId ?? 1, data: data2)
               self.statusLabel.text = "收到同步"
-              self.fileName = str?.substring(with: NSRange(location: 4, length: 2)) ?? "大海"
+              self.fileName = str?.substring(with: NSRange(location: 4, length: 4)) ?? "BGM1"
               self.pickButton.setTitle(self.fileName, for: UIControl.State.normal)
               guard let filepath = Bundle.main.path(forResource: fileName + ".mp3", ofType: nil) else {
                   return
@@ -571,19 +571,6 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
             selfSession.updateChannelStats(stats)
         }
     }
-//  func rtcEngine(_ engine: AgoraRtcEngineKit, audioTransportStatsOfUid uid: UInt, delay: UInt, lost: UInt, rxKBitRate: UInt) {
-//    print("uid: \(uid), netdelay: \(delay), lost: \(lost), bitRate: \(rxKBitRate)")
-//  }
-//  func rtcEngine(_ engine: AgoraRtcEngineKit, audioQualityOfUid uid: UInt, quality: AgoraNetworkQuality, delay: UInt, lost: UInt) {
-//    print("uid: \(uid), audiodelay: \(delay), quality: \(quality), lost: \(lost)")
-//    if uid == 1 {
-//      bgmLabel.text = "bgm状态：audiodelay: \(delay), quality: \(quality), lost: \(lost)"
-//    }else if uid == 2 {
-//      ownerLabel.text = "主播状态：audiodelay: \(delay), quality: \(quality), lost: \(lost)"
-//    }else {
-//      partnerLabel.text = "合唱状态：audiodelay: \(delay), quality: \(quality), lost: \(lost)"
-//    }
-//  }
     
     
     /// Occurs when the first remote video frame is received and decoded.

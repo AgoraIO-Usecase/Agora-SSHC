@@ -35,6 +35,12 @@ To build and run the sample application, get an App Id:
 
 2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
+### Add BGM file
+
+1. you need to find 3 bgm mp3 file.
+2. rename file to bgm1.mp3  bgm2.mp3 bgm3.mp3  and at those to project root path 
+3. Open `OpenLive.xcodeproj`  and add those file to `Supporting Files`
+
 ## Contact Us
 
 - For potential issues, take a look at our [FAQ](https://docs.agora.io/en/faq) first

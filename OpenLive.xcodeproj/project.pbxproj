@@ -19,9 +19,6 @@
 		4A33E43E25CF8F05006BC678 /* AgoraMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */; };
 		4A33E43F25CF8F05006BC678 /* AgoraMediaPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A33E44525CF9FEA006BC678 /* DropBoxTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33E44425CF9FEA006BC678 /* DropBoxTextField.swift */; };
-		4A33E44E25CFE0D7006BC678 /* 知足.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A33E44B25CFE0D7006BC678 /* 知足.mp3 */; };
-		4A33E44F25CFE0D7006BC678 /* 稻香.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A33E44C25CFE0D7006BC678 /* 稻香.mp3 */; };
-		4A33E45025CFE0D7006BC678 /* 大海.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4A33E44D25CFE0D7006BC678 /* 大海.mp3 */; };
 		4A5B9DEB25D14DD900A987BF /* Agoraffmpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */; };
 		4A5B9DEC25D14DD900A987BF /* Agoraffmpeg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A9F320225AC320700B79EC3 /* AgoraRtcKit2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */; };
@@ -84,9 +81,6 @@
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraMediaPlayer.framework; path = OpenLive/AgoraMediaPlayer.framework; sourceTree = "<group>"; };
 		4A33E44425CF9FEA006BC678 /* DropBoxTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropBoxTextField.swift; sourceTree = "<group>"; };
-		4A33E44B25CFE0D7006BC678 /* 知足.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "知足.mp3"; sourceTree = SOURCE_ROOT; };
-		4A33E44C25CFE0D7006BC678 /* 稻香.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "稻香.mp3"; sourceTree = SOURCE_ROOT; };
-		4A33E44D25CFE0D7006BC678 /* 大海.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "大海.mp3"; sourceTree = SOURCE_ROOT; };
 		4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agoraffmpeg.framework; path = OpenLive/Agoraffmpeg.framework; sourceTree = "<group>"; };
 		4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit2.framework; path = OpenLive/AgoraRtcKit2.framework; sourceTree = "<group>"; };
 		4A9F322A25AC430F00B79EC3 /* OpenLive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenLive-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -199,9 +193,6 @@
 		A76C2675238657670047E150 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4A33E44D25CFE0D7006BC678 /* 大海.mp3 */,
-				4A33E44C25CFE0D7006BC678 /* 稻香.mp3 */,
-				4A33E44B25CFE0D7006BC678 /* 知足.mp3 */,
 				078012EC1D1E57730093DE24 /* AppDelegate.swift */,
 				078012F31D1E57730093DE24 /* Assets.xcassets */,
 				078012F51D1E57730093DE24 /* LaunchScreen.storyboard */,
@@ -359,11 +350,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A33E44F25CFE0D7006BC678 /* 稻香.mp3 in Resources */,
-				4A33E44E25CFE0D7006BC678 /* 知足.mp3 in Resources */,
 				A7DEE04F232F735C00E34432 /* README.md in Resources */,
 				078012F71D1E57730093DE24 /* LaunchScreen.storyboard in Resources */,
-				4A33E45025CFE0D7006BC678 /* 大海.mp3 in Resources */,
 				078012F41D1E57730093DE24 /* Assets.xcassets in Resources */,
 				078012F21D1E57730093DE24 /* Main.storyboard in Resources */,
 			);
