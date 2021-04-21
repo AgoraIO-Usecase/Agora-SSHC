@@ -502,9 +502,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="idd-ua-SMw">
-                                <rect key="frame" x="172" y="507" width="31" height="30"/>
+                                <rect key="frame" x="156" y="507" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="大海"/>
+                                <state key="normal" title="bgm1"/>
                                 <connections>
                                     <action selector="doChangeBGM:" destination="jcF-oR-gRA" eventType="touchUpInside" id="eMb-nE-S5y"/>
                                 </connections>
