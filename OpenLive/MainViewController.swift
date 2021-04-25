@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     
     private lazy var agoraKit: AgoraRtcEngineKit = {
       let cfg = AgoraRtcEngineConfig()
-//      cfg.audioScenario = .chorus
+      cfg.audioScenario = .chorus
       cfg.appId = KeyCenter.AppId
       let engine = AgoraRtcEngineKit.sharedEngine(with: cfg, delegate: nil)
         engine.setLogFilter(AgoraLogFilter.info.rawValue)
