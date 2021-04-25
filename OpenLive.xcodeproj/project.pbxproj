@@ -16,11 +16,7 @@
 		0790F1261D1E6450003F8C18 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1251D1E6450003F8C18 /* SettingsViewController.swift */; };
 		0790F1281D1E645B003F8C18 /* LiveRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */; };
 		0790F1511D1E9631003F8C18 /* VideoSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0790F1501D1E9631003F8C18 /* VideoSession.swift */; };
-		4A33E43E25CF8F05006BC678 /* AgoraMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */; };
-		4A33E43F25CF8F05006BC678 /* AgoraMediaPlayer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A33E44525CF9FEA006BC678 /* DropBoxTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33E44425CF9FEA006BC678 /* DropBoxTextField.swift */; };
-		4A5B9DEB25D14DD900A987BF /* Agoraffmpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */; };
-		4A5B9DEC25D14DD900A987BF /* Agoraffmpeg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A9F320225AC320700B79EC3 /* AgoraRtcKit2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */; };
 		4A9F320325AC320700B79EC3 /* AgoraRtcKit2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AFE7B54262F0863003C00A7 /* bgm1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4AFE7B51262F0863003C00A7 /* bgm1.mp3 */; };
@@ -60,8 +56,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4A9F320325AC320700B79EC3 /* AgoraRtcKit2.framework in Embed Frameworks */,
-				4A5B9DEC25D14DD900A987BF /* Agoraffmpeg.framework in Embed Frameworks */,
-				4A33E43F25CF8F05006BC678 /* AgoraMediaPlayer.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,9 +76,7 @@
 		0790F1271D1E645B003F8C18 /* LiveRoomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveRoomViewController.swift; sourceTree = "<group>"; };
 		0790F1501D1E9631003F8C18 /* VideoSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoSession.swift; sourceTree = "<group>"; };
 		382885B22249DBB10023BCFA /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
-		4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraMediaPlayer.framework; path = OpenLive/AgoraMediaPlayer.framework; sourceTree = "<group>"; };
 		4A33E44425CF9FEA006BC678 /* DropBoxTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropBoxTextField.swift; sourceTree = "<group>"; };
-		4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Agoraffmpeg.framework; path = OpenLive/Agoraffmpeg.framework; sourceTree = "<group>"; };
 		4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AgoraRtcKit2.framework; path = OpenLive/AgoraRtcKit2.framework; sourceTree = "<group>"; };
 		4A9F322A25AC430F00B79EC3 /* OpenLive-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenLive-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AFE7B51262F0863003C00A7 /* bgm1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm1.mp3; sourceTree = SOURCE_ROOT; };
@@ -125,8 +117,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A9F320225AC320700B79EC3 /* AgoraRtcKit2.framework in Frameworks */,
-				4A5B9DEB25D14DD900A987BF /* Agoraffmpeg.framework in Frameworks */,
-				4A33E43E25CF8F05006BC678 /* AgoraMediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +133,6 @@
 		0745273B1E9E050C0054D2D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4A5B9DEA25D14DD100A987BF /* Agoraffmpeg.framework */,
-				4A33E43D25CF8EF2006BC678 /* AgoraMediaPlayer.framework */,
 				4A9F320125AC320700B79EC3 /* AgoraRtcKit2.framework */,
 				A758117824078CAA007EDAD3 /* Accelerate.framework */,
 				A758117624078C9F007EDAD3 /* AVFoundation.framework */,

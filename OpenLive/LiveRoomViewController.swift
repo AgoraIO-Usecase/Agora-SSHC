@@ -18,81 +18,6 @@ class EngineDelegate: NSObject {
   
 }
 
-protocol AgoraPcmSourcePushDelegate {
-  func onAudioFrame(data: CMSampleBuffer) -> Void
-}
-
-class AgoraPcmSourcePush: NSObject {
-  fileprivate var delegate: AgoraPcmSourcePushDelegate?
-  private var filePath: String
-  private var playerKit: AgoraMediaPlayer?
-  
-  
-  private var state: State = .Stop
-  
-  enum State {
-    case Play
-    case Stop
-  }
-  
-  init(delegate: AgoraPcmSourcePushDelegate?, filePath: String) {
-    self.delegate = delegate
-    self.filePath = filePath
-  }
-  
-  func changeFile(filePath: String) {
-    self.filePath = filePath
-    self.playerKit?.destroy()
-    self.playerKit = AgoraMediaPlayer.init(delegate: self)
-    playerKit?.open(filePath, startPos: 0)
-    self.state = .Stop
-  }
-  
-  func start() {
-    if state == .Stop {
-      state = .Play
-      self.playerKit?.adjustVolume(0)
-      playerKit?.play()
-    }
-  }
-  
-  func stop() {
-    if state == .Play {
-      state = .Stop
-      playerKit?.stop()
-      changeFile(filePath: filePath)
-    }
-  }
-  func destory() {
-    self.playerKit?.destroy()
-  }
-  
-  func setVol(vol: Int32) {
-    //    self.playerKit?.adjustVolume(vol)
-  }
-  
-}
-
-extension AgoraPcmSourcePush: AgoraMediaPlayerDelegate {
-  
-  func agoraMediaPlayer(_ playerKit: AgoraMediaPlayer, didChangedTo state: AgoraMediaPlayerState, error: AgoraMediaPlayerError) {
-    print(state.rawValue)
-  }
-  func agoraMediaPlayer(_ playerKit: AgoraMediaPlayer, didOccur event: AgoraMediaPlayerEvent) {
-    print(event)
-  }
-  func agoraMediaPlayer(_ playerKit: AgoraMediaPlayer, metaDataType type: AgoraMediaPlayerMetaDataType, didReceiveData data: String, length: Int) {
-    print(data)
-  }
-  
-  func agoraMediaPlayer(_ playerKit: AgoraMediaPlayer, didReceiveAudioFrame audioFrame: CMSampleBuffer) {
-    
-    //    var aaa = CMSampleBufferGetNumSamples(audioFrame)
-    self.delegate?.onAudioFrame(data: audioFrame)
-    
-  }
-}
-
 class LiveRoomViewController: UIViewController {
   
   @IBOutlet weak var broadcastersView: AGEVideoContainer!
@@ -115,6 +40,7 @@ class LiveRoomViewController: UIViewController {
   @IBOutlet var sessionButtons: [UIButton]!
   var pickData: [String] = ["bgm1","bgm2","bgm3"]
   var fileName: String = "bgm1"
+  private var mediaPlayer:AgoraRtcMediaPlayerProtocol? = nil;
   private var started: Bool = false;
   private var agoraKit: AgoraRtcEngineKit {
     return dataSource!.liveVCNeedAgoraKit()
@@ -165,10 +91,8 @@ class LiveRoomViewController: UIViewController {
   var connectionId:UInt32?
   var streamId:Int?
   weak var dataSource: LiveVCDataSource?
-  var pcmSourcePush: AgoraPcmSourcePush?
   var rtt:Int64 = 0
   var role: KTVRole = .audience
-  var vol:Int = 100
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -219,14 +143,18 @@ class LiveRoomViewController: UIViewController {
         guard let data = str.data(using: String.Encoding.utf8) else { return }
         agoraKit.sendStreamMessage(streamId ?? 0, data: data)
         usleep(useconds_t(rtt*1000/2))
-        pcmSourcePush?.start()
+        mediaPlayer?.play()
       } else {
         started = false;
         let str = "stop"
         startButton.setTitle("开始播放", for: UIControl.State.normal)
         guard let data = str.data(using: String.Encoding.utf8) else { return }
         agoraKit.sendStreamMessage(streamId ?? 0, data: data)
-        pcmSourcePush?.stop()
+        mediaPlayer?.stop()
+        guard let filepath = Bundle.main.path(forResource: fileName + ".mp3", ofType: nil) else {
+          return
+        }
+        changeFile(filePath: filepath)
       }
     }
   }
@@ -248,8 +176,8 @@ class LiveRoomViewController: UIViewController {
     if role == .audience {
       self.agoraKit.adjustUserPlaybackSignalVolume(1, volume: Int32(bgmSlider.value))
     } else {
-      //      self.pcmSourcePush?.setVol(vol: Int32(bgmSlider.value))
-      self.vol = Int(bgmSlider.value)
+      mediaPlayer?.adjustPublishSignalVolume(Int32(bgmSlider.value))
+      mediaPlayer?.adjustPlayoutVolume(Int32(bgmSlider.value))
     }
   }
 }
@@ -295,7 +223,6 @@ private extension LiveRoomViewController {
   }
   
   func sync() {
-    print("datastream send: 190124102399")
     if role == .owner {
       statusLabel.text = "发起同步"
       let ms = CLongLong(round(Date().timeIntervalSince1970*1000))
@@ -305,7 +232,7 @@ private extension LiveRoomViewController {
       guard let filepath = Bundle.main.path(forResource: fileName+".mp3", ofType: nil) else {
         return
       }
-      pcmSourcePush?.changeFile(filePath: filepath)
+      mediaPlayer?.open(filepath, startPos: 0)
       self.isSwitchCamera = false
     }
   }
@@ -315,7 +242,7 @@ private extension LiveRoomViewController {
       guard let data = str.data(using: String.Encoding.utf8) else { return }
       agoraKit.sendStreamMessage(streamId ?? 0, data: data)
     }
-    pcmSourcePush?.changeFile(filePath: filePath)
+    mediaPlayer?.open(filePath, startPos: 0)
     self.isSwitchCamera = false
   }
   func updateButtonsVisiablity() {
@@ -367,17 +294,7 @@ private extension LiveRoomViewController {
     
     // Step 1, set delegate to inform the app on AgoraRtcEngineKit events
     agoraKit.delegate = self
-    // Step 2, set live broadcasting mode
-    // for details: https://docs.agora.io/cn/Video/API%20Reference/oc/Classes/AgoraRtcEngineKit.html#//api/name/setChannelProfile:
-    agoraKit.setChannelProfile(.liveBroadcasting)
-    // set client role
-    agoraKit.setClientRole(settings.role)
     
-    // Step 3, Warning: only enable dual stream mode if there will be more than one broadcaster in the channel
-    agoraKit.enableDualStreamMode(false)
-    
-    // Step 4, enable the video module
-    //        agoraKit.enableVideo()
     agoraKit.enable(inEarMonitoring: true)
     
     let mediaOptions = AgoraRtcChannelMediaOptions()
@@ -390,12 +307,7 @@ private extension LiveRoomViewController {
     mediaOptions.clientRoleType =  AgoraRtcIntOptional.of((role == .audience) ? 2 : 1)
     
     agoraKit.setAudioProfile(AgoraAudioProfile(rawValue: 8) ?? AgoraAudioProfile.default)
-    
-    agoraKit.setExternalAudioSource(true, sampleRate: 44100, channels: 2, sourceNumber: 1, localPlayback: true, publish: true)
-    
-    // Step 5, join channel and start group chat
-    // If join  channel success, agoraKit triggers it's delegate function
-    //        agoraKit.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: 1, joinSuccess: nil)
+        
     var tuid:UInt = 0
     if role == .owner {
       tuid = 2
@@ -404,21 +316,25 @@ private extension LiveRoomViewController {
     }
     agoraKit.joinChannel(byToken: KeyCenter.Token, channelId: channelId, uid: tuid, mediaOptions: mediaOptions, joinSuccess: nil)
     if role != .audience {
+      mediaPlayer = agoraKit.createMediaPlayer(with: nil)
+      guard let filepath = Bundle.main.path(forResource: "bgm1.mp3", ofType: nil) else {
+        return
+      }
+      changeFile(filePath: filepath)
+    }
+    if role == .owner {
       let connectionIdPointer2 = UnsafeMutablePointer<UInt32>.allocate(capacity: MemoryLayout<UInt32>.stride)
       mediaOptions.publishAudioTrack = AgoraRtcBoolOptional.of(false)
-      mediaOptions.publishCustomAudioTrack = AgoraRtcBoolOptional.of((role == .owner))
+      mediaOptions.publishCustomAudioTrack = AgoraRtcBoolOptional.of(false)
       mediaOptions.enableAudioRecordingOrPlayout = AgoraRtcBoolOptional.of(false)
+      mediaOptions.publishMediaPlayerAudioTrack = AgoraRtcBoolOptional.of(true)
+      mediaOptions.publishMediaPlayerId = AgoraRtcIntOptional.of(mediaPlayer?.getMediaPlayerId() ?? 0)
       mediaOptions.publishMediaPlayerAudioTrack = AgoraRtcBoolOptional.of(false)
       mediaOptions.clientRoleType = AgoraRtcIntOptional.of(1)
       let uid2:UInt = role == .owner ? 1 : 4
       agoraKit.joinChannelEx(byToken: KeyCenter.Token, channelId: channelId, uid: uid2, connectionId: connectionIdPointer2, delegate: nil, mediaOptions: mediaOptions, joinSuccess: nil)
       connectionId = connectionIdPointer2.pointee
       connectionIdPointer2.deallocate()
-      guard let filepath = Bundle.main.path(forResource: "bgm1.mp3", ofType: nil) else {
-        return
-      }
-      pcmSourcePush = AgoraPcmSourcePush(delegate: self, filePath: filepath)
-      changeFile(filePath: filepath)
     }
     if role != .audience {
       let streamIdP = UnsafeMutablePointer<Int>.allocate(capacity: MemoryLayout<Int>.stride)
@@ -437,7 +353,7 @@ private extension LiveRoomViewController {
   }
   
   func leaveChannel() {
-    self.pcmSourcePush?.destory()
+    mediaPlayer?.stop()
     // Step 1, release local AgoraRtcVideoCanvas instance
     agoraKit.setupLocalVideo(nil)
     // Step 2, leave channel and end group chat
@@ -454,26 +370,6 @@ private extension LiveRoomViewController {
   }
 }
 
-// MARK: - AgoraPcmSourcePushDelegate
-extension LiveRoomViewController: AgoraPcmSourcePushDelegate {
-  func onAudioFrame(data: CMSampleBuffer) {
-    
-    guard let buffer = CMSampleBufferGetDataBuffer(data) else { return }
-    let size = CMBlockBufferGetDataLength(buffer)
-    let sampleBytes = UnsafeMutablePointer<Int16>.allocate(capacity: size/2)
-    CMBlockBufferCopyDataBytes(buffer, atOffset: 0, dataLength: size, destination: sampleBytes)
-    var i = 0
-    while i < size / 2 {
-      var tmp:Float = Float(sampleBytes[i])
-      tmp = tmp / 100 * Float(vol)
-      sampleBytes[i] = Int16(tmp)
-      i+=1
-    }
-    let datas = Data(bytes: sampleBytes, count: size)
-    agoraKit.pushExternalAudioFrameExNSData(datas, sourceId: 0, timestamp: 0, connectionId: connectionId ?? 1)
-  }
-  
-}
 // MARK: - UIPickerViewDataSource
 extension LiveRoomViewController: UIPickerViewDataSource {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -520,9 +416,13 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
         changeFile(filePath: filepath)
         self.statusLabel.text = "文件打开"
       } else if start {
-        pcmSourcePush?.start()
+        mediaPlayer?.play()
       } else {
-        pcmSourcePush?.stop()
+        mediaPlayer?.stop()
+        guard let filepath = Bundle.main.path(forResource: fileName + ".mp3", ofType: nil) else {
+          return
+        }
+        changeFile(filePath: filepath)
       }
     }
     if role == .owner {
@@ -532,8 +432,8 @@ extension LiveRoomViewController: AgoraRtcEngineDelegate {
       if !recv && !rtt {
         let ms = CLongLong(round(Date().timeIntervalSince1970*1000))
         guard let start = Int64(str ?? "0") else { return  }
-        self.rtt = ms-start
-        self.statusLabel.text = "延时\(self.rtt)"
+        self.rtt = (ms-start)/2
+        self.statusLabel.text = "单向延时\(self.rtt)"
       }
     }
   }
