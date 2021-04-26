@@ -8,7 +8,6 @@
 
 import UIKit
 import AgoraRtcKit2
-import AgoraMediaPlayer
 
 protocol LiveVCDataSource: NSObjectProtocol {
   func liveVCNeedAgoraKit() -> AgoraRtcEngineKit
