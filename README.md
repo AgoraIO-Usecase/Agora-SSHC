@@ -30,8 +30,6 @@ To build and run the sample application, get an App Id:
 
 1. SDK file is sdk.zip. Unzip the downloaded SDK package and copy the following files from the SDK `libs` folder into the sample application `OpenLive` folder.
     - `AograRtcKit2.framework`
-    - `AgoraMediaPlayer.framework`
-    - `Agoraffmpeg.framework`
 
 2. Connect your iPhone or iPad device and run the project. Ensure a valid provisioning profile is applied or your project will not run.
 
